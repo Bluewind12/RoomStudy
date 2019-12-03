@@ -1,5 +1,6 @@
 package momonyan.roomstudy.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,10 +12,10 @@ interface UsersDAO {
     fun insertUsers(users: Users)
 
     @Query("SELECT * FROM Users")
-    fun findAll(): List<Users>
+    fun findAll(): LiveData<List<Users>>
 
     //f:Man t:Woman
     @Query("SELECT * FROM Users WHERE gender == :gender")
-    fun findGender(gender: Boolean): List<Users>
+    fun findGender(gender: Boolean): LiveData<List<Users>>
 
 }
