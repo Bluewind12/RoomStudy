@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/recyclerItemNameText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="namae" />
+
+    <TextView
+        android:id="@+id/recyclerItemAgeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="age" />
+
+    <TextView
+        android:id="@+id/recyclerItemGenderText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="gender" />
+
+    <TextView
+        android:id="@+id/recyclerItemHobbyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="hobby" />
+
+</LinearLayout>
