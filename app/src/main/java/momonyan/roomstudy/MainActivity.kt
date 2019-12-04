@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -33,8 +34,19 @@ class MainActivity : AppCompatActivity() {
             mainRecyclerView.adapter = RecyclerAdapter(this, data)
             mainRecyclerView.layoutManager =
                 LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-
         })
+
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.gendeArrray,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            // Specify the layout to use when the list of choices appears
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            // Apply the adapter to the spinner
+            spinner.adapter = adapter
+        }
+
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             //　アイテムが選択された時
             override fun onItemSelected(
@@ -52,18 +64,27 @@ class MainActivity : AppCompatActivity() {
         }
 
         button.setOnClickListener {
-            if (item == "男") {
-                database.usersDAO().findGender(false).observe(this, Observer<List<Users>> { users ->
-                    data = users
-                })
-            } else if (item == "女") {
-                database.usersDAO().findGender(true).observe(this, Observer<List<Users>> { users ->
-                    data = users
-                })
-            } else {
-                database.usersDAO().findAll().observe(this, Observer<List<Users>> { users ->
-                    data = users
-                })
+            when (item) {
+                "男" -> {
+                    database.usersDAO().findGender(false)
+                        .observe(this, Observer<List<Users>> { users ->
+                            data = users
+                            mainRecyclerView.adapter = RecyclerAdapter(this, data)
+                        })
+                }
+                "女" -> {
+                    database.usersDAO().findGender(true)
+                        .observe(this, Observer<List<Users>> { users ->
+                            data = users
+                            mainRecyclerView.adapter = RecyclerAdapter(this, data)
+                        })
+                }
+                else -> {
+                    database.usersDAO().findAll().observe(this, Observer<List<Users>> { users ->
+                        data = users
+                        mainRecyclerView.adapter = RecyclerAdapter(this, data)
+                    })
+                }
             }
         }
 

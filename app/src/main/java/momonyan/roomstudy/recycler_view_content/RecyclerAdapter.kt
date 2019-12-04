@@ -29,7 +29,7 @@ class RecyclerAdapter(
         holder.let {
             it.nameTextView.text = itemList[position].name
             it.ageTextView.text = itemList[position].age.toString()
-            it.genderTextView.text = if (itemList[position].gender) {
+            it.genderTextView.text = if (!itemList[position].gender) {
                 "男"
             } else {
                 "女"
